@@ -39,7 +39,40 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 10),
-            _listViewWidget()
+            _listViewWidget(),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                "Harian",
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            Center(
+              child: Container(
+                height: 10.h,
+                width: 90.w,
+                decoration: BoxDecoration(
+                  //image: DecorationImage(image: AssetImage(assetName),),
+                  color: Color(0xffF37E7E),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xff494343),
+                      spreadRadius: 0,
+                      blurRadius: 1,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
