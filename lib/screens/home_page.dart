@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -38,6 +38,8 @@ class _HomePageState extends State<HomePage> {
                     ),
               ),
             ),
+            const SizedBox(height: 10),
+            _listViewWidget()
           ],
         ),
       ),
@@ -45,6 +47,60 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+//ListView Vidget
+class _listViewWidget extends StatelessWidget {
+  const _listViewWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 15.h,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 20),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: locationList.length,
+          itemBuilder: (context, index) {
+            return Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 8.h,
+                    width: 18.w,
+                    child: SvgPicture.asset(locationList[index].iconUrl),
+                  ),
+                  Text(
+                    locationList[index].temparature,
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    "4.00 PM",
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: 11,
+                        ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+//Banner Widget
 class banner extends StatelessWidget {
   const banner({
     Key? key,
