@@ -52,28 +52,140 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 5),
-            Center(
+            homeCard(),
+            SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 20),
               child: Container(
-                height: 10.h,
-                width: 90.w,
-                decoration: BoxDecoration(
-                  //image: DecorationImage(image: AssetImage(assetName),),
-                  color: Color(0xffF37E7E),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0xff494343),
-                      spreadRadius: 0,
-                      blurRadius: 1,
-                      offset: Offset(0, 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xffD2DFFF),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
                     ),
-                  ],
+                  ),
+                  child: ListTile(
+                    tileColor: Color.fromARGB(255, 61, 79, 124),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Color(0xff9AB6FF),
+                      child: SvgPicture.asset(
+                        appAssets.rainn,
+                      ),
+                    ),
+                    title: Text(
+                      locationList[index].city,
+                      textScaleFactor: 1.1,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                    ),
+                    subtitle: Text(
+                      "Hujan petir",
+                      textScaleFactor: 1.1,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                          ),
+                    ),
+                    trailing: const Icon(
+                      Icons.navigate_next_rounded,
+                      size: 30,
+                      color: Colors.black,
+                    ),
+                    selected: true,
+                    onTap: () {},
+                  ),
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+//HomeCard Widget
+class homeCard extends StatelessWidget {
+  const homeCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: 10.h,
+        width: 90.w,
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 243, 201, 191),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0xff494343),
+              spreadRadius: 0,
+              blurRadius: 0.1,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: ClipRRect(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 12.w,
+                  height: 12.h,
+                  child: SvgPicture.asset(
+                    appAssets.warning,
+                    color: Colors.red,
+                  ),
+                ),
+                SizedBox(width: 10),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Cuaca esok hari kemungkinan\n akan terjadi hujan di siang hari",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      "Jangan lupa bawa payung ya",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ],
+                ),
+                Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Transform(
+                        transform: Matrix4.identity().scaled(4.5)
+                          ..translate(2.0, -21),
+                        child: SvgPicture.asset(
+                          appAssets.warning,
+                          color: Color(0xffE7755C),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

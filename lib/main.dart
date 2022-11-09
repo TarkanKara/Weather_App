@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:weather_app_ui/screens/home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
