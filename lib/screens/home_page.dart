@@ -54,53 +54,91 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 5),
             homeCard(),
             SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 20),
-              child: Container(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xffD2DFFF),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  child: ListTile(
-                    tileColor: Color.fromARGB(255, 61, 79, 124),
-                    leading: CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Color(0xff9AB6FF),
-                      child: SvgPicture.asset(
-                        appAssets.rainn,
-                      ),
-                    ),
-                    title: Text(
-                      locationList[index].city,
-                      textScaleFactor: 1.1,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                    ),
-                    subtitle: Text(
-                      "Hujan petir",
-                      textScaleFactor: 1.1,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                          ),
-                    ),
-                    trailing: const Icon(
-                      Icons.navigate_next_rounded,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                    selected: true,
-                    onTap: () {},
-                  ),
-                ),
-              ),
-            ),
+            _listTileCard(index: index),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _listTileCard extends StatelessWidget {
+  const _listTileCard({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 20),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Color(0xffD2DFFF),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        child: ListTile(
+          tileColor: Color.fromARGB(255, 61, 79, 124),
+          leading: CircleAvatar(
+            radius: 30,
+            backgroundColor: Color(0xff9AB6FF),
+            child: SvgPicture.asset(
+              appAssets.rainn,
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    locationList[index].city,
+                    textScaleFactor: 1.1,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    "Hujan petir",
+                    textScaleFactor: 1.1,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                        ),
+                  ),
+                ],
+              ),
+              Text(
+                locationList[index].temparature,
+                textScaleFactor: 1.1,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+              ),
+            ],
+          ),
+          trailing: const Icon(
+            Icons.navigate_next_rounded,
+            size: 30,
+            color: Colors.black,
+          ),
+          selected: true,
+          onTap: () {},
         ),
       ),
     );
