@@ -11,4 +11,5 @@ class appAssets {
   static const String windy2 = "assets/images/Group2.svg";
   static const String windy3 = "assets/images/Group3.svg";
   static const String windy4 = "assets/images/Group4.svg";
+  static const String refresh = "assets/images/refresh.svg";
 }
