@@ -8,14 +8,17 @@ import 'package:weather_app_ui/screens/home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DetayPage extends StatefulWidget {
-  const DetayPage({super.key});
+  final int index;
+  const DetayPage({
+    required this.index,
+    super.key,
+  });
 
   @override
   State<DetayPage> createState() => _DetayPageState();
 }
 
 class _DetayPageState extends State<DetayPage> {
-  final int index = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +27,7 @@ class _DetayPageState extends State<DetayPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              barWidget(index: index),
+              barWidget(index: widget.index),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -125,7 +128,9 @@ class _DetayPageState extends State<DetayPage> {
                         mainAxisSpacing: 1.h,
                       ),
                       itemBuilder: (context, index) {
-                        return const gridVieww();
+                        return gridVieww(
+                          index: index,
+                        );
                       },
                     ),
                   ),
@@ -140,12 +145,18 @@ class _DetayPageState extends State<DetayPage> {
 }
 
 //gridView Widget
-class gridVieww extends StatelessWidget {
-  final index = 0;
+class gridVieww extends StatefulWidget {
+  final int? index;
   const gridVieww({
+    required this.index,
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<gridVieww> createState() => _gridViewwState();
+}
+
+class _gridViewwState extends State<gridVieww> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -159,7 +170,7 @@ class gridVieww extends StatelessWidget {
         child: Row(
           children: [
             SvgPicture.asset(
-              appAssets.windy,
+              locationList[widget.index!].iconUrl2,
               height: 4.h,
               width: 4.w,
             ),
@@ -169,7 +180,13 @@ class gridVieww extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  locationList[index].kelembaban.toString(),
+                  widget.index == 0
+                      ? locationList[widget.index!].kelembaban.toString()
+                      : widget.index == 1
+                          ? locationList[widget.index!].airPressure.toString()
+                          : widget.index == 2
+                              ? locationList[widget.index!].windSpeed.toString()
+                              : locationList[widget.index!].fog.toString(),
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,

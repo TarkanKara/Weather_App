@@ -9,6 +9,7 @@ class WeatherLocation {
   final String dateTime;
   final String weatherType;
   final String iconUrl;
+  final String iconUrl2;
   String? kelembaban;
   String? airPressure;
   String? windSpeed;
@@ -20,6 +21,7 @@ class WeatherLocation {
     required this.dateTime,
     required this.weatherType,
     required this.iconUrl,
+    required this.iconUrl2,
     this.kelembaban,
     this.airPressure,
     this.windSpeed,
@@ -34,6 +36,7 @@ final locationList = [
     dateTime: "Senin, 20 Desember 2021",
     weatherType: 'morning',
     iconUrl: appAssets.rain1,
+    iconUrl2: appAssets.windy,
     kelembaban: "86 %",
     airPressure: "940 hpa",
     windSpeed: "1 km/h",
@@ -45,7 +48,8 @@ final locationList = [
     dateTime: "Senin, 20 Desember 2021",
     weatherType: 'morning',
     iconUrl: appAssets.rain1,
-    kelembaban: "86 %",
+    iconUrl2: appAssets.windy2,
+    kelembaban: "88 %",
     airPressure: "940 hpa",
     windSpeed: "1 km/h",
     fog: "14 %",
@@ -56,6 +60,7 @@ final locationList = [
     dateTime: "Senin, 20 Desember 2021",
     weatherType: 'morning',
     iconUrl: appAssets.rain1,
+    iconUrl2: appAssets.windy3,
     kelembaban: "86 %",
     airPressure: "940 hpa",
     windSpeed: "1 km/h",
@@ -67,6 +72,7 @@ final locationList = [
     dateTime: "Senin, 20 Desember 2021",
     weatherType: 'morning',
     iconUrl: appAssets.rain1,
+    iconUrl2: appAssets.windy4,
     kelembaban: "86 %",
     airPressure: "940 hpa",
     windSpeed: "1 km/h",
@@ -78,6 +84,7 @@ final locationList = [
     dateTime: "Senin, 20 Desember 2021",
     weatherType: 'morning',
     iconUrl: appAssets.rain1,
+    iconUrl2: appAssets.windy2,
     kelembaban: "86 %",
     airPressure: "940 hpa",
     windSpeed: "1 km/h",

@@ -147,7 +147,10 @@ class _listTileCard extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DetayPage()),
+              MaterialPageRoute(
+                  builder: (context) => DetayPage(
+                        index: index,
+                      )),
             );
           },
         ),
