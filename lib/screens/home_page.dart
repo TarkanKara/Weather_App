@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 10),
-            _listViewWidget(),
+            listViewWidget(),
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -95,7 +95,7 @@ class _listTileCard extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          tileColor: Color.fromARGB(255, 93, 127, 214),
+          tileColor: Color(0xffD2DFFF),
           leading: CircleAvatar(
             radius: 30,
             backgroundColor: Color(0xff9AB6FF),
@@ -242,8 +242,8 @@ class homeCard extends StatelessWidget {
 }
 
 //ListView Vidget
-class _listViewWidget extends StatelessWidget {
-  const _listViewWidget({
+class listViewWidget extends StatelessWidget {
+  const listViewWidget({
     Key? key,
   }) : super(key: key);
 
