@@ -5,6 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:weather_app_ui/core/app_asset.dart';
 import 'package:weather_app_ui/models/weather_location.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_app_ui/screens/detay_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -54,7 +55,17 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 5),
             homeCard(),
             SizedBox(height: 15),
-            _listTileCard(index: index),
+            SizedBox(
+              height: 250,
+              child: ListView.builder(
+                itemCount: locationList.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: _listTileCard(index: index));
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -62,6 +73,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+//_listTileCard Widget
 class _listTileCard extends StatelessWidget {
   const _listTileCard({
     Key? key,
@@ -83,7 +95,7 @@ class _listTileCard extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          tileColor: Color.fromARGB(255, 61, 79, 124),
+          tileColor: Color.fromARGB(255, 93, 127, 214),
           leading: CircleAvatar(
             radius: 30,
             backgroundColor: Color(0xff9AB6FF),
@@ -100,10 +112,7 @@ class _listTileCard extends StatelessWidget {
                   Text(
                     locationList[index].city,
                     textScaleFactor: 1.1,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -112,10 +121,7 @@ class _listTileCard extends StatelessWidget {
                   Text(
                     "Hujan petir",
                     textScaleFactor: 1.1,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                         ),
@@ -138,7 +144,12 @@ class _listTileCard extends StatelessWidget {
             color: Colors.black,
           ),
           selected: true,
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetayPage()),
+            );
+          },
         ),
       ),
     );
