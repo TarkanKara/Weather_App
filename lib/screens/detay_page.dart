@@ -18,103 +18,174 @@ class _DetayPageState extends State<DetayPage> {
   final int index = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffE5E5E5),
-      body: Column(
-        children: [
-          barWidget(index: index),
-          Expanded(
-            flex: 1,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 15),
-                  child: Text(
-                    "Cuaca Per Jam",
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const listViewWidget(),
-                const SizedBox(height: 5),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    "Detail Informasi",
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
-                Center(
-                  heightFactor: 1.1,
-                  child: Container(
-                    height: 12.h,
-                    width: 92.w,
-                    decoration: const BoxDecoration(
-                        color: Color(0XFFFAFAFA),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 10),
-                      child: Row(
-                        children: [
-                          Stack(
-                            children: const [
-                              CircularProgressIndicator(
-                                value: .2,
-                                backgroundColor: Color(0xffE4E4E4),
-                                color: Color(0xff2AA837),
-                                strokeWidth: 4,
-                              ),
-                              Positioned(
-                                left: 10,
-                                top: 10,
-                                child: Text("12"),
-                              ),
-                            ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              barWidget(index: index),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 15),
+                    child: Text(
+                      "Cuaca Per Jam",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(width: 20),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "AQI - Sangat Baik",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                "Kualitas udara di daerahmu untuk saat ini\n sangat baik. Tidak ada pencemaran udara\n yang menyebabkan berbagai penyakit.",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      fontSize: 1.8.h,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                              ),
-                            ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const listViewWidget(),
+                  const SizedBox(height: 5),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      "Detail Informasi",
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
+                    ),
+                  ),
+                  Center(
+                    heightFactor: 1.1,
+                    child: Container(
+                      height: 12.h,
+                      width: 92.w,
+                      decoration: const BoxDecoration(
+                          color: Color(0XFFFAFAFA),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 10),
+                        child: Row(
+                          children: [
+                            Stack(
+                              children: const [
+                                CircularProgressIndicator(
+                                  value: .2,
+                                  backgroundColor: Color(0xffE4E4E4),
+                                  color: Color(0xff2AA837),
+                                  strokeWidth: 4,
+                                ),
+                                Positioned(
+                                  left: 10,
+                                  top: 10,
+                                  child: Text("12"),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(width: 20),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "AQI - Sangat Baik",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  "Kualitas udara di daerahmu untuk saat ini\n sangat baik. Tidak ada pencemaran udara\n yang menyebabkan berbagai penyakit.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontSize: 1.8.h,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    height: 23.h,
+                    child: GridView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 10.h,
+                        crossAxisSpacing: 2.w,
+                        mainAxisSpacing: 1.h,
+                      ),
+                      itemBuilder: (context, index) {
+                        return const gridVieww();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//gridView Widget
+class gridVieww extends StatelessWidget {
+  final index = 0;
+  const gridVieww({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 10.h,
+      width: 45.w,
+      decoration: const BoxDecoration(
+          color: Color(0xffFAFAFA),
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              appAssets.windy,
+              height: 4.h,
+              width: 4.w,
+            ),
+            SizedBox(width: 2.w),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  locationList[index].kelembaban.toString(),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                Text(
+                  "Kelembaban",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 17, fontWeight: FontWeight.w400),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

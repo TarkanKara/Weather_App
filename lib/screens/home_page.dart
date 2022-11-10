@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xffE5E5E5),
+        backgroundColor: Colors.white,
         appBar: _customAppBar(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
