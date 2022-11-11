@@ -129,6 +129,7 @@ class _DetayPageState extends State<DetayPage> {
                       ),
                       itemBuilder: (context, index) {
                         return gridVieww(
+                          selectindex: widget.index,
                           index: index,
                         );
                       },
@@ -147,9 +148,11 @@ class _DetayPageState extends State<DetayPage> {
 //gridView Widget
 class gridVieww extends StatefulWidget {
   final int? index;
+  final int selectindex;
   const gridVieww({
     required this.index,
     Key? key,
+    required this.selectindex,
   }) : super(key: key);
 
   @override
@@ -181,12 +184,16 @@ class _gridViewwState extends State<gridVieww> {
               children: [
                 Text(
                   widget.index == 0
-                      ? locationList[widget.index!].kelembaban.toString()
+                      ? locationList[widget.selectindex].kelembaban.toString()
                       : widget.index == 1
-                          ? locationList[widget.index!].airPressure.toString()
+                          ? locationList[widget.selectindex]
+                              .airPressure
+                              .toString()
                           : widget.index == 2
-                              ? locationList[widget.index!].windSpeed.toString()
-                              : locationList[widget.index!].fog.toString(),
+                              ? locationList[widget.selectindex]
+                                  .windSpeed
+                                  .toString()
+                              : locationList[widget.selectindex].fog.toString(),
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
