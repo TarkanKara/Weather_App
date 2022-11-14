@@ -5,7 +5,9 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:weather_app_ui/core/app_asset.dart';
 import 'package:weather_app_ui/models/weather_location.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_app_ui/provider/weather_provider.dart';
 import 'package:weather_app_ui/screens/detay_page.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -17,6 +19,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    final wetProvider = Provider.of<WeatherProvider>(context, listen: false);
+    wetProvider.getWeatherData(context);
+  }
+
   final int index = 0;
   @override
   Widget build(BuildContext context) {
