@@ -6,7 +6,7 @@ import 'dart:developer';
 import '../models/current_weather_response.dart';
 import 'package:http/http.dart' as http;
 
-Future<CurrentWeatherResponse?> getCurrentData([context]) async {
+Future<CurrentWeatherResponse?> getCurrentData(context) async {
   CurrentWeatherResponse weatherResponse;
   try {
     final response = await http.get(Uri.parse(

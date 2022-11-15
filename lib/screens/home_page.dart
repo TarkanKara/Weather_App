@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Consumer<WeatherProvider>(
               builder: (context, value, child) {
-                return value.isLoading == true
+                return value.isLoading
                     ? Center(child: CircularProgressIndicator())
                     : Banner(
                         index: index,
@@ -393,7 +393,11 @@ class Banner extends StatelessWidget {
                     width: 15.w,
                     height: 10.h,
                     child: Image.network(
-                        "http://openweathermap.org/img/wn/$icon@2x.png"),
+                      "http://openweathermap.org/img/wn/$icon@2x.png",
+                      height: 150,
+                      width: 150,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Padding(
