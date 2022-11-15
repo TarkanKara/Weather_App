@@ -39,15 +39,18 @@ class _HomePageState extends State<HomePage> {
           children: [
             Consumer<WeatherProvider>(
               builder: (context, value, child) {
-                return Banner(
-                  index: index,
-                  title: "${value.response.name}",
-                  tempture: (value.response.main!.temp!.toInt()).toString(),
-                  cityy: value.response.name.toString(),
-                  descriptionn:
-                      value.response.weather![0].description.toString(),
-                  icon: "${value.response.weather![0].icon}",
-                );
+                return value.isLoading == true
+                    ? Center(child: CircularProgressIndicator())
+                    : Banner(
+                        index: index,
+                        title: "${value.response.name}",
+                        tempture:
+                            (value.response.main!.temp!.toInt()).toString(),
+                        cityy: value.response.name.toString(),
+                        descriptionn:
+                            value.response.weather![0].description.toString(),
+                        icon: "${value.response.weather![0].icon}",
+                      );
               },
             ),
             const SizedBox(height: 20),
