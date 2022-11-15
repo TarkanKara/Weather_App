@@ -37,7 +37,18 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Banner(index: index),
+            Consumer<WeatherProvider>(
+              builder: (context, value, child) {
+                return Banner(
+                  index: index,
+                  title: "${value.response.name}",
+                  tempture: (value.response.main!.temp!.toInt()).toString(),
+                  cityy: value.response.name.toString(),
+                  descriptionn:
+                      value.response.weather![0].description.toString(),
+                );
+              },
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -312,8 +323,15 @@ class Banner extends StatelessWidget {
   const Banner({
     Key? key,
     required this.index,
+    required this.title,
+    required this.tempture,
+    required this.cityy,
+    required this.descriptionn,
   }) : super(key: key);
-
+  final String title;
+  final String tempture;
+  final String cityy;
+  final String descriptionn;
   final int index;
 
   @override
@@ -346,7 +364,7 @@ class Banner extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    locationList[index].dateTime,
+                    title,
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -380,7 +398,7 @@ class Banner extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          locationList[index].temparature,
+                          tempture,
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontSize: 20,
@@ -389,7 +407,7 @@ class Banner extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          locationList[index].city,
+                          cityy,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
                                     fontSize: 15,
@@ -407,7 +425,7 @@ class Banner extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Terakhir update 3.00 PM",
+                      descriptionn,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 15,
                             color: Colors.white,
