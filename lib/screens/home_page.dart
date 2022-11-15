@@ -34,59 +34,49 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: _customAppBar(),
-        body: Consumer(
-          builder: (context, WeatherProvider value, child) {
-            return value.isLoading == false
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      banner(index: index),
-                      const SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Text(
-                          wetProvider!.response.name.toString(),
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      listViewWidget(),
-                      const SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Text(
-                          "Harian",
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      homeCard(),
-                      SizedBox(height: 15),
-                      SizedBox(
-                        height: 250,
-                        child: ListView.builder(
-                          itemCount: locationList.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: _listTileCard(index: index));
-                          },
-                        ),
-                      )
-                    ],
-                  );
-          },
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Banner(index: index),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                wetProvider!.response.name.toString(),
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            listViewWidget(),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                "Harian",
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(height: 5),
+            homeCard(),
+            SizedBox(height: 15),
+            SizedBox(
+              height: 250,
+              child: ListView.builder(
+                itemCount: locationList.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: _listTileCard(index: index));
+                },
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -318,8 +308,8 @@ class listViewWidget extends StatelessWidget {
 }
 
 //Banner Widget
-class banner extends StatelessWidget {
-  const banner({
+class Banner extends StatelessWidget {
+  const Banner({
     Key? key,
     required this.index,
   }) : super(key: key);
