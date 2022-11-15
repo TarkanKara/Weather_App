@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
                   cityy: value.response.name.toString(),
                   descriptionn:
                       value.response.weather![0].description.toString(),
+                  icon: "${value.response.weather![0].icon}",
                 );
               },
             ),
@@ -326,12 +327,14 @@ class Banner extends StatelessWidget {
     required this.title,
     required this.tempture,
     required this.cityy,
+    required this.icon,
     required this.descriptionn,
   }) : super(key: key);
   final String title;
   final String tempture;
   final String cityy;
   final String descriptionn;
+  final String icon;
   final int index;
 
   @override
@@ -386,10 +389,8 @@ class Banner extends StatelessWidget {
                   SizedBox(
                     width: 15.w,
                     height: 10.h,
-                    child: SvgPicture.asset(
-                      appAssets.rain1,
-                      fit: BoxFit.cover,
-                    ),
+                    child: Image.network(
+                        "http://openweathermap.org/img/wn/$icon@2x.png"),
                   ),
                   const SizedBox(width: 10),
                   Padding(
