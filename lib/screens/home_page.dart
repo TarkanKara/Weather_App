@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, camel_case_types
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, camel_case_types, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';

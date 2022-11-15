@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:weather_app_ui/core/app_asset.dart';
