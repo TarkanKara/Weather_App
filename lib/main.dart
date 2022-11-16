@@ -10,6 +10,9 @@ void main(List<String> args) {
   runApp(
     MultiProvider(providers: [
       ChangeNotifierProvider<WeatherProvider>(create: (_) => WeatherProvider()),
+      ChangeNotifierProvider<ForecastProvider>(
+        create: (_) => ForecastProvider(),
+      ),
     ], child: const MyApp()),
   );
 }

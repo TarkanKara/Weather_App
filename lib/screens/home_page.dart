@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     wetProvider = Provider.of<WeatherProvider>(context, listen: false);
-    wetProvider!.getWeatherData(context);
+    wetProvider!.getWeatherData();
 
     forecastProvider = Provider.of<ForecastProvider>(context, listen: false);
     forecastProvider!.getForecastData(context);
@@ -69,7 +69,27 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 10),
-            listViewWidget(),
+            Consumer<ForecastProvider>(
+              builder: (context, value, child) {
+                return value.isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListViewWidget(
+                        temparature:
+                            (value.responsee.list![index].main!.temp!.toInt())
+                                .toString(),
+                        iconn: (value.responsee.list![index].weather![0].icon)
+                            .toString(),
+                        datatime: value.responsee.list![index].dtTxt
+                            .toString()
+                            .split(" ")
+                            .last
+                            .substring(0, 5),
+                        itemcountt: value.responsee.list!.length,
+                      );
+              },
+            ),
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -274,9 +294,17 @@ class homeCard extends StatelessWidget {
 }
 
 //ListView Vidget
-class listViewWidget extends StatelessWidget {
-  const listViewWidget({
+class ListViewWidget extends StatelessWidget {
+  final String iconn;
+  final String datatime;
+  final String temparature;
+  final int itemcountt;
+  const ListViewWidget({
     Key? key,
+    required this.temparature,
+    required this.iconn,
+    required this.datatime,
+    required this.itemcountt,
   }) : super(key: key);
 
   @override
@@ -287,7 +315,7 @@ class listViewWidget extends StatelessWidget {
         padding: const EdgeInsets.only(left: 10, right: 20),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: locationList.length,
+          itemCount: itemcountt,
           itemBuilder: (context, index) {
             return Container(
               decoration: const BoxDecoration(
@@ -300,10 +328,11 @@ class listViewWidget extends StatelessWidget {
                   SizedBox(
                     height: 8.h,
                     width: 18.w,
-                    child: SvgPicture.asset(locationList[index].iconUrl),
+                    child: Image.network(
+                        "http://openweathermap.org/img/wn/$iconn@2x.png"),
                   ),
                   Text(
-                    locationList[index].temparature,
+                    temparature,
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -311,7 +340,7 @@ class listViewWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "4.00 PM",
+                    datatime,
                     style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           fontSize: 11,
                         ),

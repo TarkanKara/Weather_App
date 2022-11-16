@@ -42,7 +42,12 @@ class _DetayPageState extends State<DetayPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const listViewWidget(),
+                  const ListViewWidget(
+                    temparature: "",
+                    iconn: "",
+                    datatime: "",
+                    itemcountt: 0,
+                  ),
                   const SizedBox(height: 5),
                   Padding(
                     padding: const EdgeInsets.only(left: 20),

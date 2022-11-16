@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/widgets.dart';
 import 'package:weather_app_ui/models/current_weather_response.dart';
 import 'package:weather_app_ui/models/weather_forecast.dart';
@@ -9,9 +7,9 @@ class WeatherProvider with ChangeNotifier {
   CurrentWeatherResponse response = CurrentWeatherResponse();
   bool isLoading = false;
 
-  getWeatherData(context) async {
+  getWeatherData() async {
     isLoading = true;
-    response = (await getCurrentData(context))!;
+    response = (await getCurrentData())!;
     isLoading = false;
     notifyListeners();
   }
@@ -19,9 +17,12 @@ class WeatherProvider with ChangeNotifier {
 
 class ForecastProvider with ChangeNotifier {
   WeatherForecast responsee = WeatherForecast();
+  bool isLoading = false;
 
   getForecastData(context) async {
+    isLoading = true;
     responsee = (await getCurrentDataForecast(context))!;
+    isLoading = false;
     notifyListeners();
   }
 }
