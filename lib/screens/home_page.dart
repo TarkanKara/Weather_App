@@ -71,22 +71,29 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
             Consumer<ForecastProvider>(
               builder: (context, value, child) {
-                return value.isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : ListViewWidget(
-                        temparature:
-                            "${(value.responsee.list![index].main!.temp!.toInt())} \u2103",
-                        iconn: (value.responsee.list![index].weather![0].icon)
-                            .toString(),
-                        datatime: value.responsee.list![index].dtTxt
-                            .toString()
-                            .split(" ")
-                            .last
-                            .substring(0, 5),
-                        itemcountt: value.responsee.list!.length,
-                      );
+                return SizedBox(
+                  height: 15.h,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 20),
+                    child: ListView.builder(
+                      itemCount: value.responsee.list!.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return ListWidgett(
+                          iconn: (value.responsee.list![index].weather![0].icon)
+                              .toString(),
+                          temparature:
+                              "${(value.responsee.list![index].main!.temp!.toInt())} \u2103",
+                          datatime: value.responsee.list![index].dtTxt
+                              .toString()
+                              .split(" ")
+                              .last
+                              .substring(0, 5),
+                        );
+                      },
+                    ),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 5),
@@ -292,63 +299,50 @@ class homeCard extends StatelessWidget {
   }
 }
 
-//ListView Vidget
-class ListViewWidget extends StatelessWidget {
-  final String iconn;
-  final String datatime;
-  final String temparature;
-  final int itemcountt;
-  const ListViewWidget({
+//ListWidget Container
+class ListWidgett extends StatelessWidget {
+  const ListWidgett({
     Key? key,
-    required this.temparature,
     required this.iconn,
+    required this.temparature,
     required this.datatime,
-    required this.itemcountt,
   }) : super(key: key);
+
+  final String iconn;
+  final String temparature;
+  final String datatime;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 15.h,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 20),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: itemcountt,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 8.h,
-                    width: 18.w,
-                    child: Image.network(
-                        "http://openweathermap.org/img/wn/$iconn@2x.png"),
-                  ),
-                  Text(
-                    temparature,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    datatime,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 11,
-                        ),
-                  ),
-                ],
-              ),
-            );
-          },
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
         ),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 8.h,
+            width: 18.w,
+            child:
+                Image.network("http://openweathermap.org/img/wn/$iconn@2x.png"),
+          ),
+          Text(
+            temparature,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            datatime,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: 11,
+                ),
+          ),
+        ],
       ),
     );
   }
