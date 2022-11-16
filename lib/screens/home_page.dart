@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                         index: index,
                         title: "${value.response.name}",
                         tempture:
-                            (value.response.main!.temp!.toInt()).toString(),
+                            "${(value.response.main!.temp!.toInt())} \u2103",
                         cityy: value.response.name.toString(),
                         descriptionn:
                             value.response.weather![0].description.toString(),
@@ -77,8 +77,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     : ListViewWidget(
                         temparature:
-                            (value.responsee.list![index].main!.temp!.toInt())
-                                .toString(),
+                            "${(value.responsee.list![index].main!.temp!.toInt())} \u2103",
                         iconn: (value.responsee.list![index].weather![0].icon)
                             .toString(),
                         datatime: value.responsee.list![index].dtTxt

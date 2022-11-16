@@ -4,7 +4,9 @@ import 'package:weather_app_ui/models/weather_forecast.dart';
 import 'package:weather_app_ui/services/api_services.dart';
 
 class WeatherProvider with ChangeNotifier {
-  CurrentWeatherResponse response = CurrentWeatherResponse();
+  CurrentWeatherResponse response = CurrentWeatherResponse(
+    base: '',
+  );
   bool isLoading = false;
 
   getWeatherData() async {

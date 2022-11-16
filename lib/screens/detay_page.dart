@@ -7,6 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_app_ui/screens/home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../provider/weather_provider.dart';
+import 'package:provider/provider.dart';
+
 class DetayPage extends StatefulWidget {
   final int index;
   const DetayPage({
@@ -19,6 +22,7 @@ class DetayPage extends StatefulWidget {
 }
 
 class _DetayPageState extends State<DetayPage> {
+  final int index = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,11 +46,26 @@ class _DetayPageState extends State<DetayPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const ListViewWidget(
-                    temparature: "",
-                    iconn: "",
-                    datatime: "",
-                    itemcountt: 0,
+                  Consumer<ForecastProvider>(
+                    builder: (context, value, child) {
+                      return value.isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : ListViewWidget(
+                              temparature:
+                                  "${(value.responsee.list![index].main!.temp!.toInt())} \u2103",
+                              iconn: (value
+                                      .responsee.list![index].weather![0].icon)
+                                  .toString(),
+                              datatime: value.responsee.list![index].dtTxt
+                                  .toString()
+                                  .split(" ")
+                                  .last
+                                  .substring(0, 5),
+                              itemcountt: value.responsee.list!.length,
+                            );
+                    },
                   ),
                   const SizedBox(height: 5),
                   Padding(
