@@ -70,6 +70,8 @@ Future<WeatherForecast?> getCurrentDataForecast(context) async {
 
 /* ---------------------------------------------------------------------------- */
 const String mybaseUrl = "https://api.openweathermap.org/data/2.5/weather?";
+
+//DioClient
 final Dio _dio = Dio(
   BaseOptions(
     baseUrl: mybaseUrl,
@@ -78,7 +80,6 @@ final Dio _dio = Dio(
   ),
 )..interceptors.add(Loggining());
 
-//DioClient
 Future<CurrentWeatherResponse?> getCurrentData() async {
   CurrentWeatherResponse weatherResponse;
   try {
