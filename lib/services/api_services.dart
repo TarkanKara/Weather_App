@@ -43,20 +43,29 @@ Future<WeatherForecast?> getCurrentDataForecast(context) async {
 }
 */
 
-//Dio Packages
+/*---------------------------START Dio Client--------------------------------- */
+final Dio _dio = Dio(
+  BaseOptions(
+    baseUrl: "https://api.openweathermap.org/data/2.5/",
+    connectTimeout: 5000,
+    receiveTimeout: 3000,
+  ),
+)..interceptors.add(Loggining());
+
+/*----------------------------END Dio Client---------------------------------- */
+
+//WeatherForecast
 Future<WeatherForecast?> getCurrentDataForecast(context) async {
   WeatherForecast forecast;
   Response responsee;
 
   try {
-    final responsee = await Dio().get(
-        "https://api.openweathermap.org/data/2.5/forecast",
-        queryParameters: {
-          "lat": 41.024556,
-          "lon": 29.019009,
-          "units": "metric",
-          "appid": "632352c89fc0115888423c5a5336dca9",
-        });
+    final responsee = await _dio.get("forecast", queryParameters: {
+      "lat": 41.024556,
+      "lon": 29.019009,
+      "units": "metric",
+      "appid": "632352c89fc0115888423c5a5336dca9",
+    });
     forecast = WeatherForecast.fromJson(responsee.data);
     print(responsee.data);
     return forecast;
@@ -69,21 +78,12 @@ Future<WeatherForecast?> getCurrentDataForecast(context) async {
 }
 
 /* ---------------------------------------------------------------------------- */
-const String mybaseUrl = "https://api.openweathermap.org/data/2.5/weather?";
 
-//DioClient
-final Dio _dio = Dio(
-  BaseOptions(
-    baseUrl: mybaseUrl,
-    connectTimeout: 5000,
-    receiveTimeout: 3000,
-  ),
-)..interceptors.add(Loggining());
-
+//CurrentWeatherResponse
 Future<CurrentWeatherResponse?> getCurrentData() async {
   CurrentWeatherResponse weatherResponse;
   try {
-    final response = await _dio.get(mybaseUrl, queryParameters: {
+    final response = await _dio.get("weather?", queryParameters: {
       "lat": 41.024556,
       "lon": 29.019009,
       "units": "metric",
