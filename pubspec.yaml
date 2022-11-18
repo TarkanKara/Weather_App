@@ -52,6 +52,7 @@ dev_dependencies:
   provider: ^6.0.4
   http: ^0.13.5
   dio: ^4.0.6
+  animate_do: ^3.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
