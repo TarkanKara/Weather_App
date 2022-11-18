@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_app_ui/provider/weather_provider.dart';
 import 'package:weather_app_ui/screens/detay_page.dart';
 import 'package:provider/provider.dart';
+import 'package:animate_do/animate_do.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -45,15 +46,17 @@ class _HomePageState extends State<HomePage> {
               builder: (context, value, child) {
                 return value.isLoading
                     ? Center(child: CircularProgressIndicator())
-                    : Banner(
-                        index: index,
-                        title: "${value.response.name}",
-                        tempture:
-                            "${(value.response.main!.temp!.toInt())} \u2103",
-                        cityy: value.response.name.toString(),
-                        descriptionn:
-                            value.response.weather![0].description.toString(),
-                        icon: "${value.response.weather![0].icon}",
+                    : FadeIn(
+                        child: Banner(
+                          index: index,
+                          title: "${value.response.name}",
+                          tempture:
+                              "${(value.response.main!.temp!.toInt())} \u2103",
+                          cityy: value.response.name.toString(),
+                          descriptionn:
+                              value.response.weather![0].description.toString(),
+                          icon: "${value.response.weather![0].icon}",
+                        ),
                       );
               },
             ),
@@ -400,12 +403,14 @@ class Banner extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 15,
-                          color: Colors.white,
-                        ),
+                  BounceInDown(
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                    ),
                   ),
                   Text(
                     "3.30 PM",
@@ -420,14 +425,16 @@ class Banner extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 15.w,
-                    height: 10.h,
-                    child: Image.network(
-                      "http://openweathermap.org/img/wn/$icon@2x.png",
-                      height: 150,
-                      width: 150,
-                      fit: BoxFit.cover,
+                  FadeInRightBig(
+                    child: SizedBox(
+                      width: 15.w,
+                      height: 10.h,
+                      child: Image.network(
+                        "http://openweathermap.org/img/wn/$icon@2x.png",
+                        height: 150,
+                        width: 150,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -436,24 +443,30 @@ class Banner extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          tempture,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
+                        FadeInRightBig(
+                          child: Text(
+                            tempture,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                          ),
                         ),
                         const SizedBox(height: 5),
-                        Text(
-                          cityy,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.1,
-                                  ),
+                        FadeInRightBig(
+                          child: Text(
+                            cityy,
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.1,
+                                    ),
+                          ),
                         ),
                       ],
                     ),
