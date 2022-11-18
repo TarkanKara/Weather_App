@@ -1,15 +1,15 @@
 // ignore_for_file: depend_on_referenced_packages, avoid_print, unused_local_variable
 
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:weather_app_ui/models/weather_forecast.dart';
+import 'package:weather_app_ui/services/logging.dart';
 
 import '../models/current_weather_response.dart';
-import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
-//Http Packages
+/* 
+//http package replaced with dioClient
 Future<CurrentWeatherResponse?> getCurrentData() async {
   CurrentWeatherResponse weatherResponse;
   try {
@@ -22,9 +22,9 @@ Future<CurrentWeatherResponse?> getCurrentData() async {
     log(e.toString());
   }
   return null;
-}
+} */
 
-//Http Packages
+//http package replaced with dio package
 /* 
 Future<WeatherForecast?> getCurrentDataForecast(context) async {
   WeatherForecast forecast;
@@ -67,3 +67,32 @@ Future<WeatherForecast?> getCurrentDataForecast(context) async {
   }
   return null;
 }
+
+/* ---------------------------------------------------------------------------- */
+const String mybaseUrl = "https://api.openweathermap.org/data/2.5/weather?";
+final Dio _dio = Dio(
+  BaseOptions(
+    baseUrl: mybaseUrl,
+    connectTimeout: 5000,
+    receiveTimeout: 3000,
+  ),
+)..interceptors.add(Loggining());
+
+//DioClient
+Future<CurrentWeatherResponse?> getCurrentData() async {
+  CurrentWeatherResponse weatherResponse;
+  try {
+    final response = await _dio.get(mybaseUrl, queryParameters: {
+      "lat": 41.024556,
+      "lon": 29.019009,
+      "units": "metric",
+      "appid": "632352c89fc0115888423c5a5336dca9",
+    });
+    print(response.data);
+    return weatherResponse = CurrentWeatherResponse.fromJson(response.data);
+  } catch (e) {
+    log(e.toString());
+  }
+  return null;
+}
+/* ---------------------------------------------------------------------------- */
