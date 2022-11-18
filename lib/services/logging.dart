@@ -15,4 +15,12 @@ class Loggining extends Interceptor {
         "RESPONSE ${response.statusCode} => ${response.requestOptions.path} ");
     super.onResponse(response, handler);
   }
+
+  @override
+  void onError(DioError err, ErrorInterceptorHandler handler) {
+    print(
+      'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}',
+    );
+    return super.onError(err, handler);
+  }
 }
