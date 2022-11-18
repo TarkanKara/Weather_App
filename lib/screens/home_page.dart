@@ -63,12 +63,16 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(left: 20),
-              child: Text(
-                wetProvider!.response.name.toString(),
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+              child: Consumer<WeatherProvider>(
+                builder: (context, value, child) {
+                  return Text(
+                    wetProvider!.response.name.toString(),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  );
+                },
               ),
             ),
             const SizedBox(height: 10),
