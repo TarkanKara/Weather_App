@@ -2,10 +2,9 @@
 
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:weather_app_ui/models/weather_forecast.dart';
 import 'package:weather_app_ui/services/logging.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+
 import '../models/current_weather_response.dart';
 import 'package:dio/dio.dart';
 
@@ -81,7 +80,7 @@ Future<WeatherForecast?> getCurrentDataForecast(context) async {
 /* ---------------------------------------------------------------------------- */
 
 //CurrentWeatherResponse
-Future<CurrentWeatherResponse?> getCurrentData(BuildContext context) async {
+Future<CurrentWeatherResponse?> getCurrentData() async {
   CurrentWeatherResponse weatherResponse;
   try {
     final response = await _dio.get("weather?", queryParameters: {
@@ -92,31 +91,6 @@ Future<CurrentWeatherResponse?> getCurrentData(BuildContext context) async {
     });
     print(response.data);
 
-    switch (response.statusCode) {
-      case 200:
-        snackBarr("200", "İstekBaşarılı", context);
-        break;
-      case 400:
-        snackBarr("400", "istek Geçersiz", context);
-        break;
-      case 401:
-        snackBarr("401", "Yetkisiz", context);
-        break;
-      case 403:
-        snackBarr("403", "Yasaklı", context);
-        break;
-      case 404:
-        snackBarr("404", "Sayfa Bulunamadı", context);
-        break;
-      case 500:
-        snackBarr("500", "Sunucu Hatası", context);
-        break;
-      case 502:
-        snackBarr("502", "Geçersiz Ağ Geçidi", context);
-        break;
-      default:
-        snackBarr("Oops", "Birşeyler Yanlış Gitti", context);
-    }
     return weatherResponse = CurrentWeatherResponse.fromJson(response.data);
   } catch (e) {
     log(e.toString());
@@ -124,23 +98,7 @@ Future<CurrentWeatherResponse?> getCurrentData(BuildContext context) async {
   return null;
 }
 
-//SnackBarMethod
-snackBarr(String title, message, BuildContext context) {
-  final snackBar = SnackBar(
-    elevation: 0,
-    behavior: SnackBarBehavior.floating,
-    backgroundColor: Colors.transparent,
-    content: AwesomeSnackbarContent(
-      color: Colors.amber,
-      title: title,
-      message: message,
-      contentType: ContentType.failure,
-    ),
-  );
-  ScaffoldMessenger.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(snackBar);
-}
+
 
 
 /* ---------------------------------------------------------------------------- */

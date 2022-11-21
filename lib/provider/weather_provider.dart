@@ -6,11 +6,10 @@ import 'package:weather_app_ui/services/api_services.dart';
 class WeatherProvider with ChangeNotifier {
   CurrentWeatherResponse response = CurrentWeatherResponse();
   bool isLoading = false;
-  //context kullanıldı
-  getWeatherData(BuildContext context) async {
+
+  getWeatherData() async {
     isLoading = true;
-    //context kullanıldı
-    response = (await getCurrentData(context))!;
+    response = (await getCurrentData())!;
     isLoading = false;
     notifyListeners();
   }
