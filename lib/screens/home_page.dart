@@ -26,7 +26,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     wetProvider = Provider.of<WeatherProvider>(context, listen: false);
-    wetProvider!.getWeatherData();
+    //context parametresi kullanıldı
+    wetProvider!.getWeatherData(context);
 
     forecastProvider = Provider.of<ForecastProvider>(context, listen: false);
     forecastProvider!.getForecastData(context);
