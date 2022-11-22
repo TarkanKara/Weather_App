@@ -28,31 +28,37 @@ class Loggining extends Interceptor {
 
     switch (response.statusCode) {
       case 200:
-        _oneContextShowDialog("200", "İstek Başarılı");
-        /* showSnackBar(
-            builder: (_) =>
-                const SnackBar(content: Text('My awesome snackBar!'))); */
+        /*  _oneContextShowDialog("200", "İstek Başarılı"); */
+        snackBarr("200", "İstek Başarılı", OneContext().context!);
         break;
+
       case 400:
-        _oneContextShowDialog("400", "istek Geçersiz");
+        /*  _oneContextShowDialog("400", "istek Geçersiz"); */
+        snackBarr("400", "istek Geçersiz", OneContext().context!);
         break;
       case 401:
-        _oneContextShowDialog("401", "Yetkisiz");
+        /* _oneContextShowDialog("401", "Yetkisiz"); */
+        snackBarr("401", "Yetkisiz", OneContext().context!);
         break;
       case 403:
-        _oneContextShowDialog("403", "Yasaklı");
+        /* _oneContextShowDialog("403", "Yasaklı"); */
+        snackBarr("403", "Yasaklı", OneContext().context!);
         break;
       case 404:
-        _oneContextShowDialog("404", "Sayfa Bulunamadı");
+        /*  _oneContextShowDialog("404", "Sayfa Bulunamadı"); */
+        snackBarr("404", "Sayfa Bulunamadı", OneContext().context!);
         break;
       case 500:
-        _oneContextShowDialog("500", "Sunucu Hatası");
+        /*  _oneContextShowDialog("500", "Sunucu Hatası"); */
+        snackBarr("500", "Sunucu Hatası", OneContext().context!);
         break;
       case 502:
-        _oneContextShowDialog("502", "Geçersiz Ağ Geçidi");
+        /* _oneContextShowDialog("502", "Geçersiz Ağ Geçidi"); */
+        snackBarr("502", "Geçersiz Ağ Geçidi", OneContext().context!);
         break;
       default:
-        _oneContextShowDialog("OOPS!", "Birşeyler Yanlış Gitti");
+        /* _oneContextShowDialog("OOPS!", "Birşeyler Yanlış Gitti"); */
+        snackBarr("OOPS", "Birşeyler Yanlış Gitti", OneContext().context!);
     }
     return super.onResponse(response, handler);
   }
@@ -96,7 +102,7 @@ snackBarr(String title, message, BuildContext context) {
     behavior: SnackBarBehavior.floating,
     backgroundColor: Colors.transparent,
     content: AwesomeSnackbarContent(
-      color: Colors.amber,
+      color: Colors.green,
       title: title,
       message: message,
       contentType: ContentType.failure,
