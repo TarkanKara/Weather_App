@@ -28,77 +28,68 @@ class Loggining extends Interceptor {
 
     switch (response.statusCode) {
       case 200:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("On Page Load"),
-            content: Text("Hello World!"),
-          ),
-        );
+        _oneContextShowDialog("200", "İstek Başarılı");
         /* showSnackBar(
             builder: (_) =>
                 const SnackBar(content: Text('My awesome snackBar!'))); */
         break;
       case 400:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("On Page Load"),
-            content: Text("Hello World!"),
-          ),
-        );
+        _oneContextShowDialog("400", "istek Geçersiz");
         break;
       case 401:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("On Page Load"),
-            content: Text("Hello World!"),
-          ),
-        );
+        _oneContextShowDialog("401", "Yetkisiz");
         break;
       case 403:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("On Page Load"),
-            content: Text("Hello World!"),
-          ),
-        );
+        _oneContextShowDialog("403", "Yasaklı");
         break;
       case 404:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("On Page Load"),
-            content: Text("Hello World!"),
-          ),
-        );
+        _oneContextShowDialog("404", "Sayfa Bulunamadı");
         break;
       case 500:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("On Page Load"),
-            content: Text("Hello World!"),
-          ),
-        );
+        _oneContextShowDialog("500", "Sunucu Hatası");
         break;
       case 502:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("On Page Load"),
-            content: Text("Hello World!"),
-          ),
-        );
+        _oneContextShowDialog("502", "Geçersiz Ağ Geçidi");
         break;
       default:
-        OneContext().showDialog(
-          builder: (_) => const AlertDialog(
-            title: Text("selamun aleyküm"),
-            content: Text("aleyküm selam!"),
-          ),
-        );
+        _oneContextShowDialog("OOPS!", "Birşeyler Yanlış Gitti");
     }
     return super.onResponse(response, handler);
   }
-}
 
-//SnackBarMethod
+/*-------------------OneContext().ShowDialog START-------------------------- */
+  Future<dynamic> _oneContextShowDialog(String titlee, conttentTextt) {
+    return OneContext().showDialog(
+      builder: (context) => AlertDialog(
+        title: Center(
+          child: Text(titlee),
+        ),
+        content: Text(conttentTextt),
+        actions: [
+          TextButton(
+            onPressed: () {
+              OneContext().popAllDialogs();
+            },
+            child: Container(
+              color: Colors.red,
+              padding: const EdgeInsets.all(14),
+              child: Text(
+                "TAMAM",
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+/*-------------------OneContext().ShowDialog END-------------------------- */
+
+/*-------------------SnackBarMethod START-------------------------- */
 snackBarr(String title, message, BuildContext context) {
   final snackBar = SnackBar(
     elevation: 0,
@@ -115,3 +106,4 @@ snackBarr(String title, message, BuildContext context) {
     ..hideCurrentSnackBar()
     ..showSnackBar(snackBar);
 }
+/*-------------------SnackBarMethod END-------------------------- */
