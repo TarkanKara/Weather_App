@@ -1,11 +1,21 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:one_context/one_context.dart';
+import 'package:weather_app_ui/provider/weather_provider.dart';
 import 'package:weather_app_ui/screens/home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:provider/provider.dart';
 
 void main(List<String> args) {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider<WeatherProvider>(create: (_) => WeatherProvider()),
+      ChangeNotifierProvider<ForecastProvider>(
+        create: (_) => ForecastProvider(),
+      ),
+    ], child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +28,7 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "WeatherApp",
+        builder: OneContext().builder,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,

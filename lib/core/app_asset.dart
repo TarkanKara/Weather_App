@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 class appAssets {
   static const String rain1 = "assets/images/image1.svg";
   static const String rain2 = "assets/images/image2.svg";

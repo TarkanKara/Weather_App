@@ -49,6 +49,12 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   responsive_sizer: ^3.1.1
   flutter_svg: ^1.1.6
+  provider: ^6.0.4
+  http: ^0.13.5
+  dio: ^4.0.6
+  animate_do: ^3.0.2
+  awesome_snackbar_content: ^0.1.0
+  one_context: ^2.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

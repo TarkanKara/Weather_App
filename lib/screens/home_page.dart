@@ -1,11 +1,14 @@
-// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, camel_case_types
+// ignore_for_file: depend_on_referenced_packages, prefer_const_constructors, camel_case_types, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:weather_app_ui/core/app_asset.dart';
 import 'package:weather_app_ui/models/weather_location.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_app_ui/provider/weather_provider.dart';
 import 'package:weather_app_ui/screens/detay_page.dart';
+import 'package:provider/provider.dart';
+import 'package:animate_do/animate_do.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -17,6 +20,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  WeatherProvider? wetProvider;
+  ForecastProvider? forecastProvider;
+  @override
+  void initState() {
+    super.initState();
+    wetProvider = Provider.of<WeatherProvider>(context, listen: false);
+    wetProvider!.getWeatherData();
+
+    forecastProvider = Provider.of<ForecastProvider>(context, listen: false);
+    forecastProvider!.getForecastData(context);
+  }
+
   final int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -27,20 +42,72 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            banner(index: index),
+            Consumer<WeatherProvider>(
+              builder: (context, value, child) {
+                return value.isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : FadeIn(
+                        child: Banner(
+                          index: index,
+                          title: "${value.response.name}",
+                          tempture:
+                              "${(value.response.main!.temp!.toInt())} \u2103",
+                          cityy: value.response.name.toString(),
+                          descriptionn:
+                              value.response.weather![0].description.toString(),
+                          icon: "${value.response.weather![0].icon}",
+                        ),
+                      );
+              },
+            ),
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(left: 20),
-              child: Text(
-                "Cuaca Per Jam",
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+              child: Consumer<WeatherProvider>(
+                builder: (context, value, child) {
+                  return Text(
+                    wetProvider!.response.name.toString(),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  );
+                },
               ),
             ),
             const SizedBox(height: 10),
-            listViewWidget(),
+            Consumer<ForecastProvider>(
+              builder: (context, value, child) {
+                return value.isLoading
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SizedBox(
+                        height: 15.h,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 20),
+                          child: ListView.builder(
+                            itemCount: value.responsee.list!.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return ListWidgett(
+                                iconn: (value.responsee.list![index].weather![0]
+                                        .icon)
+                                    .toString(),
+                                temparature:
+                                    "${(value.responsee.list![index].main!.temp!.toInt())} \u2103",
+                                datatime: value.responsee.list![index].dtTxt
+                                    .toString()
+                                    .split(" ")
+                                    .last
+                                    .substring(0, 5),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+              },
+            ),
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -244,66 +311,71 @@ class homeCard extends StatelessWidget {
   }
 }
 
-//ListView Vidget
-class listViewWidget extends StatelessWidget {
-  const listViewWidget({
+//ListWidget Container
+class ListWidgett extends StatelessWidget {
+  const ListWidgett({
     Key? key,
+    required this.iconn,
+    required this.temparature,
+    required this.datatime,
   }) : super(key: key);
+
+  final String iconn;
+  final String temparature;
+  final String datatime;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 15.h,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 20),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: locationList.length,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 8.h,
-                    width: 18.w,
-                    child: SvgPicture.asset(locationList[index].iconUrl),
-                  ),
-                  Text(
-                    locationList[index].temparature,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    "4.00 PM",
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          fontSize: 11,
-                        ),
-                  ),
-                ],
-              ),
-            );
-          },
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
         ),
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 8.h,
+            width: 18.w,
+            child:
+                Image.network("http://openweathermap.org/img/wn/$iconn@2x.png"),
+          ),
+          Text(
+            temparature,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            datatime,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                  fontSize: 11,
+                ),
+          ),
+        ],
       ),
     );
   }
 }
 
 //Banner Widget
-class banner extends StatelessWidget {
-  const banner({
+class Banner extends StatelessWidget {
+  const Banner({
     Key? key,
     required this.index,
+    required this.title,
+    required this.tempture,
+    required this.cityy,
+    required this.icon,
+    required this.descriptionn,
   }) : super(key: key);
-
+  final String title;
+  final String tempture;
+  final String cityy;
+  final String descriptionn;
+  final String icon;
   final int index;
 
   @override
@@ -335,12 +407,14 @@ class banner extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    locationList[index].dateTime,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 15,
-                          color: Colors.white,
-                        ),
+                  BounceInDown(
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                    ),
                   ),
                   Text(
                     "3.30 PM",
@@ -355,12 +429,16 @@ class banner extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 15.w,
-                    height: 10.h,
-                    child: SvgPicture.asset(
-                      appAssets.rain1,
-                      fit: BoxFit.cover,
+                  FadeInRightBig(
+                    child: SizedBox(
+                      width: 15.w,
+                      height: 10.h,
+                      child: Image.network(
+                        "http://openweathermap.org/img/wn/$icon@2x.png",
+                        height: 150,
+                        width: 150,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -369,24 +447,30 @@ class banner extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          locationList[index].temparature,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
+                        FadeInRightBig(
+                          child: Text(
+                            tempture,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                          ),
                         ),
                         const SizedBox(height: 5),
-                        Text(
-                          locationList[index].city,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.1,
-                                  ),
+                        FadeInRightBig(
+                          child: Text(
+                            cityy,
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.1,
+                                    ),
+                          ),
                         ),
                       ],
                     ),
@@ -397,7 +481,7 @@ class banner extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Terakhir update 3.00 PM",
+                      descriptionn,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 15,
                             color: Colors.white,

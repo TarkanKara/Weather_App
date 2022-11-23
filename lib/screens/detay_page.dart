@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:weather_app_ui/core/app_asset.dart';
@@ -6,6 +6,9 @@ import 'package:weather_app_ui/models/weather_location.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_app_ui/screens/home_page.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../provider/weather_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetayPage extends StatefulWidget {
   final int index;
@@ -19,6 +22,7 @@ class DetayPage extends StatefulWidget {
 }
 
 class _DetayPageState extends State<DetayPage> {
+  final int index = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,7 +46,44 @@ class _DetayPageState extends State<DetayPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const listViewWidget(),
+                  Consumer<ForecastProvider>(
+                    builder: (context, value, child) {
+                      return value.isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Consumer<ForecastProvider>(
+                              builder: (context, value, child) {
+                                return SizedBox(
+                                  height: 15.h,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 20),
+                                    child: ListView.builder(
+                                      itemCount: value.responsee.list!.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return ListWidgett(
+                                          iconn: (value.responsee.list![index]
+                                                  .weather![0].icon)
+                                              .toString(),
+                                          temparature:
+                                              "${(value.responsee.list![index].main!.temp!.toInt())} \u2103",
+                                          datatime: value
+                                              .responsee.list![index].dtTxt
+                                              .toString()
+                                              .split(" ")
+                                              .last
+                                              .substring(0, 5),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                    },
+                  ),
                   const SizedBox(height: 5),
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
